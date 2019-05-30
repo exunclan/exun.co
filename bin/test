@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ $1 == "--cover" ]]; then
+  yarn nyc ava
+else
+  yarn ava
+fi
