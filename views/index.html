@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <title>Shorten | exun.co</title>
+    <link rel="stylesheet" href="/normalize.css" />
+    <link rel="stylesheet" href="/skeleton.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="form-container">
+        <div class="action-heading">
+          <h1>Shorten</h1>
+          <a href="/shorten/logout" class="logout-button">Logout</a>
+        </div>
+        <p>
+          Ideally, you should use the <code>https://</code> scheme for the
+          target URL.
+        </p>
+        <form action="/shorten" method="POST">
+          <input placeholder="Shortlink" type="text" name="slug" id="slug" />
+
+          <input
+            placeholder="Target URL"
+            type="text"
+            name="target"
+            id="target"
+          />
+
+          <button>Create</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

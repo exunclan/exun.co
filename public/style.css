@@ -1,0 +1,144 @@
+html,
+body {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  background: linear-gradient(
+    to right bottom,
+    rgb(255, 255, 255),
+    rgb(245, 248, 254)
+  );
+  width: 100%;
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  width: 90%;
+  max-width: 450px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 4px;
+  border: 1px solid #eaeaef;
+}
+
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'],
+select,
+textarea {
+  font-weight: normal;
+  border: 1px solid #eaeaef;
+  padding: 25px 15px;
+  height: 38px;
+  width: 100%;
+  line-height: 1em;
+  border-radius: 4px;
+  outline: 0;
+  display: block;
+  margin-bottom: 1.8rem;
+}
+
+input[type='email']::placeholder,
+input[type='number']::placeholder,
+input[type='search']::placeholder,
+input[type='text']::placeholder,
+input[type='tel']::placeholder,
+input[type='url']::placeholder,
+input[type='password']::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #a6a6ab;
+}
+
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'],
+textarea {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='text']:active,
+input[type='password']:active {
+  border: 1px solid var(--color-primary);
+}
+
+button {
+  background: var(--color-primary);
+  border: 0;
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  padding: 0px 22px;
+  line-height: 45px;
+  height: 45px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 10px -2px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  margin-top: 0.5rem;
+  transition: background var(--transition-style);
+}
+button:hover {
+  background: rgb(35, 101, 207);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+form {
+  margin-bottom: 0;
+}
+
+p.disclaimer {
+  margin-top: 2.2rem;
+  margin-bottom: 0;
+  color: #a6a6ab;
+}
+
+.action-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.action-heading h1 {
+  margin-bottom: 0;
+}
+
+.logout-button {
+  border: 1px solid #eaeaef;
+  padding: 10px 20px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.form-error {
+  color: #da6b6b;
+  margin-bottom: 1.8rem;
+}
