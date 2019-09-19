@@ -8,6 +8,7 @@ const { Model } = require('objection')
 const session = require('koa-session')
 const Knex = require('knex')
 const views = require('koa-views')
+const Sentry = require('@sentry/node')
 const router = require('./routes')
 const knexfile = require('./knexfile')
 
@@ -19,6 +20,8 @@ Model.knex(knex)
 const app = new Koa()
 app.keys = [process.env.SECRET]
 
+// Set up Sentry.
+Sentry.init({ dsn: process.env.SENTRY_DSN })
 if (env === 'development') {
   app.use(logger())
 }
@@ -27,6 +30,7 @@ app.use(async (ctx, next) => {
     await next()
   } catch (err) {
     ctx.status = err.status || 500
+    Sentry.captureException(err)
   }
 })
 app.use(bodyparser())

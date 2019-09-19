@@ -14,15 +14,23 @@ router.post('/shorten', auth.middleware(), async ctx => {
   const { slug, target } = ctx.request.body
   const normalizedTarget = normalizeUrl(target)
   const shortlink = await Shortlink.query().findOne('slug', slug)
-  if (!shortlink)
+  if (shortlink) {
+    if (normalizedTarget === '') {
+      await Shortlink.query()
+        .findOne('slug', slug)
+        .delete()
+    } else {
+      await Shortlink.query()
+        .findOne('slug', slug)
+        .patch({ target: normalizedTarget })
+    }
+  } else if (!shortlink && normalizedTarget !== '') {
     await Shortlink.query().insert({
       slug,
       target: normalizedTarget,
     })
-  else
-    await Shortlink.query()
-      .findOne('slug', slug)
-      .patch({ target: normalizedTarget })
+  }
+
   ctx.redirect('back')
 })
 
