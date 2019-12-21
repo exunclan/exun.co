@@ -13,7 +13,7 @@ NODE_ENV=<'development' or 'production'>
 USERNAME=<login username>
 PASSWORD=<login password>
 ```
-2. Get the Google Cloud Credentials from [https://ananayarora.com](Ananay).
+2. Get the Google Cloud Credentials from [Ananay](https://ananayarora.com).
 3. Create a file called `.authorized` with the emails of those who are allowed to make shortlinks.
 4. Run `yarn` to install dependencies
 5. Create a SQLite database with `sqlite3 db/<env>.sqlite3 < db/setup.sql` where `env` is either `development` or `production`
@@ -22,4 +22,4 @@ PASSWORD=<login password>
 
 ## Credits
 
-Written by [https://kabirgoel.com/](Kabir Goel) and [https://ananayarora.com](Ananay Arora).
+Written by [Kabir Goel](https://kabirgoel.com/) and [Ananay Arora](https://ananayarora.com).
