@@ -18,8 +18,8 @@
     "node": "11.15.x"
   },
   "dependencies": {
-    "@sentry/node": "5.6.2",
-    "axios": "^0.18.0",
+    "@sentry/node": "^5.10.2",
+    "axios": "^0.19.0",
     "bcrypt": "^3.0.3",
     "dotenv": "^6.2.0",
     "googleapis": "^46.0.0",
