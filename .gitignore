@@ -5,3 +5,5 @@ yarn-error.log
 test.sqlite3
 dev.sqlite3
 development.sqlite3
+client_secret.json
+.authorized

@@ -18,7 +18,7 @@
         {{#if error}}
         <p class="form-error">{{ error }}</p>
         {{/if}}
-        <form action="/shorten/login" method="POST">
+        <!-- <form action="/shorten/login" method="POST">
           <input type="text" placeholder="Username" name="username" />
           <input type="password" placeholder="Password" name="password" />
           <button>Login</button>
@@ -26,7 +26,12 @@
             Don’t have a login?
             <a href="https://m.me/SupremeLeaderKabir">Message Kabir</a>
           </p>
-        </form>
+        </form> -->
+        <button onclick="window.location.href='{{ login_url }}'">Sign in with Google</button>
+        <p class="disclaimer">
+          Don’t have a login?
+          <a href="https://m.me/SupremeLeaderKabir">Message Kabir</a>
+        </p>
       </div>
     </div>
   </body>
