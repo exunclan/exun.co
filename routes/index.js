@@ -43,15 +43,18 @@ router.get('/shorten/login', async ctx => {
 
 router.get('/shorten/auth', async ctx => {
   const { code } = ctx.request.query;
-  await GoogleController.callbackHandler(code);
-  const email = await GoogleController.getEmail();
+  const email = await GoogleController.callbackHandlerAndGetEmail(code);
   const data = fs.readFileSync(path.resolve(__dirname, '../.authorized'));
   if (data.includes(email)) {
     ctx.session.email = email;
     ctx.redirect('/shorten');
   } else {
-    await ctx.render('login', { error: "Sorry, your account isn't authorized. This incident will be reported." })
+    ctx.redirect('/unauthorized');
   }
+});
+
+router.get('/unauthorized', async ctx => {
+  await ctx.render('login', { error: "Sorry, your account isn't authorized. This incident will be reported.", login_url: GoogleController.getLoginUrl() })
 });
 
 // router.post('/shorten/login', async ctx => {

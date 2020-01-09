@@ -3,8 +3,9 @@
  * @author: Ananay Arora <i@ananayarora.com>
  */
 
-const { google } = require('googleapis');
+const {OAuth2Client} = require('google-auth-library');
 const OAuth2Data = require('../client_secret.json');
+const jwt = require('jsonwebtoken')
 
 // Credentials and configuration
 const CLIENT_ID = OAuth2Data.web.client_id;
@@ -17,14 +18,14 @@ if (process.env.NODE_ENV == "development" || process.env.NODE_ENV == "dev") {
 }
 
 // Google OAuth2 Client object
-const client = new google.auth.OAuth2(
+const client = new OAuth2Client(
     CLIENT_ID,
     CLIENT_SECRET,
     REDIRECT_URL
 );
 
 const scopes = [
-    'https://www.googleapis.com/auth/gmail.readonly'
+    'https://www.googleapis.com/auth/userinfo.email'
 ];
 
 /**
@@ -42,46 +43,27 @@ let getLoginUrl = () => {
  * Handles the callback:
  * - Checks the authorization code
  * - Generates the access token
+ * - Gets the email from the jwt token
  * @param {string} code - Authorization Code 
  * @return {Promise<string>} accessToken – Access Token
  */
-let callbackHandler = (code) => {
+let callbackHandlerAndGetEmail = (code) => {
     return new Promise((resolve, reject) => {
         client.getToken(code, (err, tokens) => {
+            // console.log(tokens);
             if (err) {
                 console.error("Error authenticating: " + code);
                 console.error(err);
                 reject(false);
             } else {
-                console.log("Successful Login!");
                 client.setCredentials(tokens);
-                resolve(true);
+                resolve(jwt.decode(tokens.id_token).email);
             }
-        });
-    });
-}
-
-/**
- * Grabs the email using the Gmail API
- * @return {string} email – The email address
- */
-let getEmail = () => {
-    const gmail = google.gmail({ version: 'v1', auth: client });
-    return new Promise((resolve, reject) => {
-        gmail.users.getProfile({
-            userId: 'me'
-        }, (err, res) => {
-            if (err) {
-                console.log(err);
-                reject(err);
-            }
-            resolve(res.data.emailAddress);
         });
     });
 }
 
 module.exports = {
     getLoginUrl,
-    callbackHandler,
-    getEmail
+    callbackHandlerAndGetEmail
 }
