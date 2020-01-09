@@ -12,9 +12,9 @@ const CLIENT_ID = OAuth2Data.web.client_id;
 const CLIENT_SECRET = OAuth2Data.web.client_secret;
 let REDIRECT_URL = "";
 if (process.env.NODE_ENV == "development" || process.env.NODE_ENV == "dev") {
-    REDIRECT_URL = OAuth2Data.web.redirect_uris[0];
-} else {
     REDIRECT_URL = OAuth2Data.web.redirect_uris[1];
+} else {
+    REDIRECT_URL = OAuth2Data.web.redirect_uris[0];
 }
 
 // Google OAuth2 Client object
