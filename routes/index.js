@@ -10,7 +10,7 @@ const fs = require('fs');
 const router = new Router()
 
 router.get('/shorten', auth.middleware(), async ctx => {
-  await ctx.render('index')
+  await ctx.render('index', {profile_pic: ctx.session.profile_pic, name: ctx.session.name, email: ctx.session.email})
 })
 
 router.post('/shorten', auth.middleware(), async ctx => {
@@ -43,10 +43,15 @@ router.get('/shorten/login', async ctx => {
 
 router.get('/shorten/auth', async ctx => {
   const { code } = ctx.request.query;
-  const email = await GoogleController.callbackHandlerAndGetEmail(code);
+  const profile = await GoogleController.callbackHandlerAndGetProfile(code);
+  const profile_pic = profile.picture;
+  const name = profile.name;
+  const email = profile.email;
   const data = fs.readFileSync(path.resolve(__dirname, '../.authorized'));
   if (data.includes(email)) {
     ctx.session.email = email;
+    ctx.session.name = name;
+    ctx.session.profile_pic = profile_pic;
     ctx.redirect('/shorten');
   } else {
     ctx.redirect('/unauthorized');
@@ -54,7 +59,10 @@ router.get('/shorten/auth', async ctx => {
 });
 
 router.get('/unauthorized', async ctx => {
-  await ctx.render('login', { error: "Sorry, your account isn't authorized. This incident will be reported.", login_url: GoogleController.getLoginUrl() })
+  await ctx.render('login', { 
+    error: "Sorry, your account isn't authorized. This incident will be reported.", 
+    login_url: GoogleController.getLoginUrl()
+  })
 });
 
 // router.post('/shorten/login', async ctx => {

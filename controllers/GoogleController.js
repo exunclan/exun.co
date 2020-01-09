@@ -25,6 +25,7 @@ const client = new OAuth2Client(
 );
 
 const scopes = [
+    'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/userinfo.email'
 ];
 
@@ -43,13 +44,14 @@ let getLoginUrl = () => {
  * Handles the callback:
  * - Checks the authorization code
  * - Generates the access token
- * - Gets the email from the jwt token
+ * - Gets the profile from the jwt token
  * @param {string} code - Authorization Code 
  * @return {Promise<string>} accessToken – Access Token
  */
-let callbackHandlerAndGetEmail = (code) => {
+let callbackHandlerAndGetProfile = (code) => {
     return new Promise((resolve, reject) => {
         client.getToken(code, (err, tokens) => {
+            console.log(tokens);
             // console.log(tokens);
             if (err) {
                 console.error("Error authenticating: " + code);
@@ -57,7 +59,7 @@ let callbackHandlerAndGetEmail = (code) => {
                 reject(false);
             } else {
                 client.setCredentials(tokens);
-                resolve(jwt.decode(tokens.id_token).email);
+                resolve(jwt.decode(tokens.id_token));
             }
         });
     });
@@ -65,5 +67,5 @@ let callbackHandlerAndGetEmail = (code) => {
 
 module.exports = {
     getLoginUrl,
-    callbackHandlerAndGetEmail
+    callbackHandlerAndGetProfile
 }

@@ -142,3 +142,18 @@ p.disclaimer {
   color: #da6b6b;
   margin-bottom: 1.8rem;
 }
+
+.profile {
+  margin-top: 40px;
+}
+
+.profile img {
+  border-radius: 100%;
+  width: 64px;
+  display: inline-block;
+}
+
+.profile span {
+  display: inline-block;
+  margin-left: 20px;
+}
