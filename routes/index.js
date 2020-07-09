@@ -65,14 +65,6 @@ router.get('/unauthorized', async ctx => {
   })
 });
 
-// router.post('/shorten/login', async ctx => {
-//   const { username, password } = ctx.request.body
-//   if (username === process.env.USERNAME && password === process.env.PASSWORD) {
-//     ctx.session.username = username
-//     ctx.redirect('/shorten')
-//   } else await ctx.render('login', { error: 'Incorrect username or password' })
-// })
-
 router.get('/shorten/logout', async ctx => {
   ctx.session = null
   ctx.redirect('/shorten/login')
