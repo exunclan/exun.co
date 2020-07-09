@@ -1,11 +1,11 @@
 const Router = require('koa-router')
 
+const path = require("path");
+const fs = require('fs');
 const Shortlink = require('../models/Shortlink')
 const auth = require('../lib/auth')
 const normalizeUrl = require('../lib/normalizeUrl')
 const GoogleController = require("../controllers/GoogleController");
-const path = require("path");
-const fs = require('fs');
 
 const router = new Router()
 
@@ -44,14 +44,12 @@ router.get('/shorten/login', async ctx => {
 router.get('/shorten/auth', async ctx => {
   const { code } = ctx.request.query;
   const profile = await GoogleController.callbackHandlerAndGetProfile(code);
-  const profile_pic = profile.picture;
-  const name = profile.name;
-  const email = profile.email;
+  const {picture, name, email} = profile
   const data = fs.readFileSync(path.resolve(__dirname, '../.authorized'));
   if (data.includes(email)) {
     ctx.session.email = email;
     ctx.session.name = name;
-    ctx.session.profile_pic = profile_pic;
+    ctx.session.profile_pic = picture;
     ctx.redirect('/shorten');
   } else {
     ctx.redirect('/unauthorized');
