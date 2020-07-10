@@ -79,8 +79,7 @@ router.get('*', async ctx => {
   }
   const shortlink = await Shortlink.query().findOne('slug', pathname.slice(1))
   if (!shortlink) {
-    await ctx.render('404')
-    ctx.status = 404
+    ctx.throw(404)
     return
   }
   ctx.redirect(shortlink.target)
