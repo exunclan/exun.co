@@ -1,11 +1,11 @@
 const Router = require('koa-router')
 
+const path = require("path");
+const fs = require('fs');
 const Shortlink = require('../models/Shortlink')
 const auth = require('../lib/auth')
 const normalizeUrl = require('../lib/normalizeUrl')
 const GoogleController = require("../controllers/GoogleController");
-const path = require("path");
-const fs = require('fs');
 
 const router = new Router()
 
@@ -44,14 +44,12 @@ router.get('/shorten/login', async ctx => {
 router.get('/shorten/auth', async ctx => {
   const { code } = ctx.request.query;
   const profile = await GoogleController.callbackHandlerAndGetProfile(code);
-  const profile_pic = profile.picture;
-  const name = profile.name;
-  const email = profile.email;
+  const {picture, name, email} = profile
   const data = fs.readFileSync(path.resolve(__dirname, '../.authorized'));
   if (data.includes(email)) {
     ctx.session.email = email;
     ctx.session.name = name;
-    ctx.session.profile_pic = profile_pic;
+    ctx.session.profile_pic = picture;
     ctx.redirect('/shorten');
   } else {
     ctx.redirect('/unauthorized');
@@ -64,14 +62,6 @@ router.get('/unauthorized', async ctx => {
     login_url: GoogleController.getLoginUrl()
   })
 });
-
-// router.post('/shorten/login', async ctx => {
-//   const { username, password } = ctx.request.body
-//   if (username === process.env.USERNAME && password === process.env.PASSWORD) {
-//     ctx.session.username = username
-//     ctx.redirect('/shorten')
-//   } else await ctx.render('login', { error: 'Incorrect username or password' })
-// })
 
 router.get('/shorten/logout', async ctx => {
   ctx.session = null

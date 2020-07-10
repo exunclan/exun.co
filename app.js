@@ -29,6 +29,10 @@ app.use(async (ctx, next) => {
   try {
     await next()
   } catch (err) {
+    if (err.status === 404) {
+      await ctx.render('404')
+    }
+
     ctx.status = err.status || 500
     Sentry.captureException(err)
   }
