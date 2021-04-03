@@ -157,3 +157,15 @@ p.disclaimer {
   display: inline-block;
   margin-left: 20px;
 }
+
+table.links {
+  margin: 50px 0;
+  width: 90%;
+  max-width: 800px;
+}
+
+table.links td:nth-child(1),
+table.links td:nth-child(2) {
+  font-family: monospace;
+}
+
