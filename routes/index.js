@@ -13,13 +13,17 @@ const router = new Router()
  * Serve main view
  */
 router.get('/shorten', auth.middleware(), async ctx => {
-  const links = await Shortlink.query()
-  await ctx.render('index', {
-    profile_pic: ctx.session.profile_pic,
-    name: ctx.session.name,
-    email: ctx.session.email,
-    links,
-  })
+  try {
+    const links = await Shortlink.query()
+    await ctx.render('index', {
+      profile_pic: ctx.session.profile_pic,
+      name: ctx.session.name,
+      email: ctx.session.email,
+      links,
+    })
+  } catch (e) {
+    console.error(e)
+  }
 })
 
 /**
