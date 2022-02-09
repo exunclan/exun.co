@@ -1,6 +1,7 @@
 # Exun’s Link Shortener
+> Not using anymore. Moved to https://github.com/someshkar/dotco
 
-Running at [exun.co](https://exun.co/shorten).
+> Used to run at [exun.co](https://exun.co/shorten).
 
 ## Setup
 
